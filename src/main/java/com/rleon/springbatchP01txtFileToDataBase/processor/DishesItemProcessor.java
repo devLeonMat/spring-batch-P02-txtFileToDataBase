@@ -11,8 +11,8 @@ public class DishesItemProcessor implements ItemProcessor<Dishes, Dishes> {
     @Override
     public Dishes process(Dishes dishes) throws Exception {
         String name = dishes.getName().toUpperCase();
-        String origin = dishes.getName().toUpperCase();
-        String characteristics = dishes.getName();
+        String origin = dishes.getOrigin().toUpperCase();
+        String characteristics = dishes.getCharacteristics();
 
         Dishes transformDishes = new Dishes(name, origin, characteristics);
         log.info("Converting ( {} ) into ( {} )", dishes, transformDishes);

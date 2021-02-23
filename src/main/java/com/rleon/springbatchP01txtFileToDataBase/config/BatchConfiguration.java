@@ -40,7 +40,6 @@ public class BatchConfiguration {
     private String fileInput;
 
     public FlatFileItemReader<Dishes> reader() {
-        log.info("=====>FlatFileItemReader");
 
         return new FlatFileItemReaderBuilder<Dishes>().name("dishesItemReader")
                 .resource(new ClassPathResource(fileInput))
@@ -54,22 +53,20 @@ public class BatchConfiguration {
 
     @Bean
     public DishesItemProcessor processor() {
-        log.info("=====>DishesItemProcessor");
         return new DishesItemProcessor();
     }
 
     @Bean
     public JdbcBatchItemWriter<Dishes> writer(DataSource dataSource) {
-        log.info("=====>JdbcBatchItemWriter");
         return new JdbcBatchItemWriterBuilder<Dishes>().itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-                .sql("INSERT INTO coffee (name, origin, characteristics) VALUES (:name, :origin, :characteristics)")
+                .sql("INSERT INTO dishes (name, origin, characteristics) VALUES (:name, :origin, :characteristics)")
                 .dataSource(dataSource)
                 .build();
     }
 
     @Bean
     public Job importUserJob(JobCompletionNotificationListener listener, Step step1) {
-        log.info("=====>importUserJob");
+
         return jobBuilderFactory.get("importUserJob")
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)
@@ -80,7 +77,6 @@ public class BatchConfiguration {
 
     @Bean
     public Step step1(JdbcBatchItemWriter<Dishes> writer) {
-        log.info("=====>step1");
         return stepBuilderFactory.get("step1")
                 .<Dishes, Dishes>chunk(10)
                 .reader(reader())

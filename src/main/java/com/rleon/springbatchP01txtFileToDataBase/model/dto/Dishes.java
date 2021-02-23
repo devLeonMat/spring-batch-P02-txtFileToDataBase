@@ -2,15 +2,18 @@ package com.rleon.springbatchP01txtFileToDataBase.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.ToString;;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+;
 
 @Data
 @ToString
+@NoArgsConstructor
 @AllArgsConstructor
 public class Dishes {
 
     private String name;
-    private String country;
+    private String origin;
     private String characteristics;
 
 }
